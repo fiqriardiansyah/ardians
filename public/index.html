@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Spartan:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+ 
+    <title>React App</title>
+  </head>
+  <body>
+
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <div id="root"></div>
+
+    <div id="cursor-beyond" class="transform duration-300 transition-width transition-height transition-opacity transition-transform transition ease-in-out p-1 overflow-hidden w-8 h-8 border-2 border-grey-dark rounded-full fixed z-500 -translate-x-1/2 -translate-y-1/2 pointer-events-none ">
+      <div id="cursor-content" class="p-1 opacity-0 w-full h-full backdrop-filter rounded-full backdrop-invert "></div>
+    </div>
+    <div id="cursor-image" class="flex items-center justify-center duration-700 h-0 z--1 transform transition-width transition-height transition-opacity transition-transform transition ease-in-out p-1 overflow-hidden fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none "></div>
+
+    <div id="cursor" class="transition-opacity duration-300 transition-transform w-2 h-2 rounded-full fixed z-500 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none backdrop-filter backdrop-invert"></div>
+    <div id="observer-class"></div>
+    <div id="observer-clean-up-cursor"></div>
+
+    <script>
+
+      const cursorImages = [
+        {name: 'cursor-imready',image: '%PUBLIC_URL%/cursor_imready.svg',type: 'cursor-image'},
+        {name: 'cursor-name',image: '%PUBLIC_URL%/cursor_name.svg',type: 'cursor-image'},
+        {name: 'cursor-indonesia',image: '%PUBLIC_URL%/cursor_indonesia.svg',type: 'cursor-image'},
+        {name: 'cursor-english',image: '%PUBLIC_URL%/cursor_english.svg',type: 'cursor-image'},
+        {name: 'cursor-about',image: '%PUBLIC_URL%/cursor_about.svg',type: 'cursor-image'},
+        {name: 'cursor-resume',image: '%PUBLIC_URL%/cursor_resume.svg',type: 'cursor-image'},
+        {name: 'cursor-full-image-indonesia',image: '%PUBLIC_URL%/cursor_full_image_indonesia.jpg',type: 'full-image'},
+        {name: 'cursor-full-image-satisfaction',image: '%PUBLIC_URL%/cursor_full_image_satisfaction.png',type: 'full-image'},
+        {name: 'cursor-full-image-freelance',image: '%PUBLIC_URL%/cursor_full_image_freelance.jpg',type: 'full-image'},
+        {name: 'cursor-full-image-fulltime',image: '%PUBLIC_URL%/cursor_full_image_fulltime.png',type: 'full-image'},
+      ];
+
+      let currentCursorIsOut = true;
+      const cursor = document.querySelector('#cursor');
+      const cursorBeyond = document.querySelector('#cursor-beyond');  
+      const cursorImage = document.querySelector('#cursor-image');
+      const cursorContent = cursorBeyond.querySelector('#cursor-content');
+      const observerClass = document.querySelector('#observer-class');
+      const observerCleanUpCursor = document.querySelector('#observer-clean-up-cursor');
+      let elementsClick = document.querySelectorAll('.CLICK-ELEMENT');
+
+      const timeDelay = async (time)=> new Promise((res,rej)=> setTimeout(()=> res() ,time) );
+
+      const clickElementHover = (elements) => {
+
+        [...elements].forEach(el => {
+
+          el.addEventListener("mouseover",(e)=> {
+            cursorImages.forEach(crsrImg => {
+              if(el.classList.contains(crsrImg.name) && crsrImg.type === "full-image"){
+                
+                cursor.style.opacity = 0;
+                cursorBeyond.style.opacity = 0;
+                cursorContent.style.opacity = 0;
+
+                cursorImage.innerHTML = `<img class="w-full filter grayscale-80" src="${crsrImg.image}" />`;
+                cursorImage.classList.add("cursor-full-image-effect");
+
+              }else if(el.classList.contains(crsrImg.name)){
+                cursorContent.innerHTML = `<img class="cursor-content-image-pointer-effect" src="${crsrImg.image}" />`;
+
+                cursor.classList.add('cursor-pointer-effect');
+                cursorBeyond.classList.add('cursor-beyond-pointer-effect');
+                cursorContent.classList.add('cursor-content-pointer-effect');
+              }else {
+                cursor.classList.add('cursor-pointer-effect');
+                cursorBeyond.classList.add('cursor-beyond-pointer-effect');
+                cursorContent.classList.add('cursor-content-pointer-effect');
+              }
+            })
+            
+          });
+
+          el.addEventListener("mouseleave",(e)=> {
+            cursor.style.opacity = 1;
+            cursorBeyond.style.opacity = 1;
+            cursor.classList.remove('cursor-pointer-effect');
+            cursorBeyond.classList.remove('cursor-beyond-pointer-effect');
+
+            cursorContent.classList.remove('cursor-content-pointer-effect');
+            cursorContent.innerHTML = '';
+
+            cursorImage.classList.remove("cursor-full-image-effect");
+            cursorImage.innerHTML = '';
+
+          });
+
+        });
+
+      }
+
+      var observerElementsClick = new MutationObserver(function (event) {
+        elementsClick = document.querySelectorAll('.CLICK-ELEMENT');
+        clickElementHover(elementsClick);
+      });
+
+      observerElementsClick.observe(observerClass, {
+        attributes: true, 
+        attributeFilter: ['class'],
+        childList: false, 
+        characterData: false
+      });
+
+      var observerCleanUpCursorHandler = new MutationObserver(function (event) {
+        cursor.classList.remove('cursor-pointer-effect');
+        cursorBeyond.classList.remove('cursor-beyond-pointer-effect');
+        cursorContent.classList.remove('cursor-content-pointer-effect');
+        cursorContent.innerHTML = '';
+      });
+
+      observerCleanUpCursorHandler.observe(observerCleanUpCursor, {
+        attributes: true, 
+        attributeFilter: ['class'],
+        childList: false, 
+        characterData: false
+      });
+      
+      const mouseMoveHandler = e => {
+        const x = e.clientX;
+        const y = e.clientY;
+
+        cursor.style.top = `${y}px`;
+        cursor.style.left = `${x}px`;
+
+        setTimeout(()=> {
+
+          cursorBeyond.style.top = `${y}px`;
+          cursorBeyond.style.left = `${x}px`;
+
+          cursorImage.style.top = `${y}px`;
+          cursorImage.style.left = `${x}px`;
+
+        },100);
+        
+      }
+
+      const mouseOverHandler = e => {
+        if(currentCursorIsOut){
+          currentCursorIsOut = false;
+          if(!currentCursorIsOut){
+            setTimeout(async ()=> {
+              cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+              cursorBeyond.style.transform = 'translate(-50%,-50%) scale(1)';
+              await timeDelay(50);
+              cursor.style.opacity = 1;
+              cursorBeyond.style.opacity = 1;
+            },40);
+          }
+        }
+      }
+
+      const mouseOutHandler = e => {
+        e = e ? e : window.event;
+        var from = e.relatedTarget || e.toElement;
+        if (!from || from.nodeName == "HTML") {
+          currentCursorIsOut = true;
+
+          if(currentCursorIsOut) {
+            cursor.style.opacity = 0;
+            cursor.style.transform = 'translate(-50%,-50%) scale(0)';
+            cursorBeyond.style.opacity = 0;
+            cursorBeyond.style.transform = 'translate(-50%,-50%) scale(0)';
+          }
+          
+        }
+      }
+
+      const mouseDownHandler = e => cursorBeyond.classList.add("cursor-beyond-click-anim");
+
+      const mouseUpHandler = e => cursorBeyond.classList.remove("cursor-beyond-click-anim");
+
+      const initialClickElement = ()=> {
+        elementsClick = document.querySelectorAll('.CLICK-ELEMENT');
+        clickElementHover(elementsClick);
+      }
+
+      window.addEventListener("mousemove",mouseMoveHandler);
+      window.addEventListener("mouseover",mouseOverHandler);
+      window.addEventListener("mouseout",mouseOutHandler);
+      window.addEventListener("mousedown",mouseDownHandler);
+      window.addEventListener("mouseup",mouseUpHandler);
+      window.addEventListener("load",initialClickElement)
+
+    </script>
+  </body>
+</html>
