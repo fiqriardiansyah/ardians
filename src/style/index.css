@@ -8,7 +8,7 @@ body {
     overflow-y: hidden;
     height: 100%;
     overscroll-behavior-y: none;
-    @apply bg-black;
+    @apply bg-primary;
 }
 
 body::-webkit-scrollbar {
@@ -118,4 +118,44 @@ body::-webkit-scrollbar-thumb {
 
 .transform-50-scale-07 {
     transform: scale(.7) !important;
+}
+
+/* MENU EFFECT ELEMENT */
+
+
+.bottom-nav-transform-y-100 {
+    transition: all 2s !important;
+    transition-delay: .8s !important;
+    transform: translateY(-100px) !important;
+    opacity: 0 !important;
+}
+.bottom-nav-transform-y-200 {
+    transition: all 2s !important;
+    transition-delay: .8s !important;
+    transform: translateY(-200px) !important;
+    opacity: 0 !important;
+}
+.bottom-nav-transform-y-300 {
+    transition: all 2s !important;
+    transition-delay: .8s !important;
+    transform: translateY(-300px) !important;
+    opacity: 0 !important;
+}
+.bottom-nav-transform-y-100-50 {
+    transition: all 2s !important;
+    transition-delay: .8s !important;
+    transform: translate(-50%,-100px) !important;
+    opacity: 0 !important;
+}
+.bottom-nav-transform-y-200-50 {
+    transition: all 2s !important;
+    transition-delay: .8s !important;
+    transform: translate(-50%,-200px) !important;
+    opacity: 0 !important;
+}
+.bottom-nav-transform-y-300-50 {
+    transition: all 2s !important;
+    transition-delay: .8s !important;
+    transform: translate(-50%,-300px) !important;
+    opacity: 0 !important;
 }

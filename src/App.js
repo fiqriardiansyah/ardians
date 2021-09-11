@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 // components
 import Navbar from './components/Navbar';
 import Menu from './components/Menu';
+import BottomNav from './components/BottomNav';
 
 // pages
 import Home from './pages/Home';
@@ -22,13 +23,14 @@ function App() {
 
     return (
     <StateProvider >
-      <RouteProvider>
-        <Navbar />
-        <Menu />
+      <RouteProvider> 
           <Router>
             <Route
               render={({ location }) =>(
-                <AnimatePresence initial={false} exitBeforeEnter >
+                <>
+                <Navbar />
+                <Menu />
+                <AnimatePresence exitBeforeEnter >
                   <Switch location={location} key={location.pathname}>
                     <Route
                       exact
@@ -40,8 +42,15 @@ function App() {
                       path='/about'
                       render={() => <About />}
                     />
+                    <Route
+                      exact
+                      path='/resume'
+                      render={() => <Resume />}
+                    />
                   </Switch>
                 </AnimatePresence>
+                <BottomNav key="bottomNavFix" fixedPosition={true} />
+                </>
               )}
             />
           </Router>

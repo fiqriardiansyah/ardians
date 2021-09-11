@@ -30,7 +30,7 @@ import BottomNav from '../components/BottomNav';
 
 const Home = ({data}) => {
 
-    const { opacityPage } = useContext(RouteContext);
+    const { } = useContext(RouteContext);
 
     const childSmoothScrollRef = useRef();
     const imageContainerRef = useRef();
@@ -61,17 +61,21 @@ const Home = ({data}) => {
         if(imageRef.current) imageRef.current.style.transform = `translateY(-${scrollY / 8}px)`;
     });
 
+    useEffect(()=> {
+        window.scrollTo(0,0);
+    },[]);
+
     return (
             <motion.div exit={{opacity: 0}}  >
                 {/* <Load /> */}
                 <SmoothScroll childRef={childSmoothScrollRef}>
-                    <div ref={childSmoothScrollRef} className={`container px-8 mx-auto bg-black `} >
+                    <div ref={childSmoothScrollRef} className={`container px-8 mx-auto`} >
 
                         <div className="h-screen flex flex-col">
                             <p className="MENU-EFFECT-ELEMENT MENU-TRANSFORM-Y-200 LOAD-FINISH-EFFECT-ELEMENT LOAD-OPACITY-INITIAL-07 font-spartan text-6xl text-grey-dark font-light mt-52 text-center"> 
-                                21 years old developer based in  
+                                <span>21 years old developer based in</span>
                                 <span className="CLICK-ELEMENT cursor-full-image-indonesia  font-medium text-white"> indonesia::</span> 
-                                build beautifull thing with 
+                                <span>build beautifull thing with </span>
                             </p>
                             <p className="MENU-EFFECT-ELEMENT MENU-TRANSFORM-Y-300 LOAD-FINISH-EFFECT-ELEMENT LOAD-OPACITY-INITIAL-1 font-roboto font-medium text-grey-dark text-7xl text-center">code</p>
                             <div className="flex flex-row items-start justify-between mt-20">
@@ -144,7 +148,7 @@ const Home = ({data}) => {
 
                     </div>
 
-                    <BottomNav link="/about" />
+                    <BottomNav key="bottomNavRegular" nextLink="/about" />
 
                 </SmoothScroll>
                 

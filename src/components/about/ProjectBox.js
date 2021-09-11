@@ -2,7 +2,7 @@ import React from 'react';
 
 const ProjectBox = ({data}) => {
     return  <div className="group h-44 w-full overflow-hidden relative flex items-center">
-                <div className="group-hover:bg-blackTransparent group-hover:p-8 bg-black duration-200 z-10 cursor-pointer h-full w-full border-b-4 border-grey-light flex items-center justify-between ">
+                <div className="group-hover:bg-primaryTransparent group-hover:p-8 bg-primary duration-200 z-10 cursor-pointer h-full w-full border-b-4 border-grey-light flex items-center justify-between ">
                     <p className="group-hover:text-white duration-200 font-spartan font-bold text-grey-light text-7xl uppercase">{data.title}</p>
                     <div className=" flex flex-col mr-20 align-start ">
                         <p className="font-roboto font-light text-lg text-white capitalize">{data.dev}</p>

@@ -5,6 +5,8 @@ import { timeDelay } from '../utils/utils';
 // context
 import {StateContext} from '../context/StateContext';
 
+import { reRenderCursor } from '../utils/utils';
+
 const texts = ['fiqri a.','wake up','take a bath','breakfast','ready !'];
 
 const Progress = ({}) => {
@@ -29,7 +31,7 @@ const Progress = ({}) => {
                 if(i === 100) {
                     setTimeout(()=> {
                         setIsLoadFinish(true);
-                        document.querySelector('#observer-class').classList.add(Math.random().toString());
+                        reRenderCursor();
                     },1000);
                 }
             }
@@ -69,7 +71,7 @@ const Load = props => {
 
     return (
         <motion.div animate={isClick ? {height: 0} : {}} transition={{duration: 1,delay: 1}} className="h-screen w-screen bg-grey-dark z-500 fixed inset-0 overflow-hidden  ">
-            <motion.div animate={isClick ? {height: 0} : {}} transition={{duration: 1,delay: .3}} className="relative w-full h-full bg-black ">
+            <motion.div animate={isClick ? {height: 0} : {}} transition={{duration: 1,delay: .3}} className="relative w-full h-full bg-primary ">
                 <div className={`${isLoadFinish ? 'pointer-events-auto ' : 'pointer-events-none'} ${isClick ? 'rotate-and-lift opacity-0 duration-500 pointer-events-none' : '' } duration-500 flex justify-center w-full items-center h-20 absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 `}>
                     <p onClick={isLoadFinish ? clickHandler : ()=>{} } className={`${isLoadFinish && !isClick ? 'cursor-pointer CLICK-ELEMENT cursor-imready': 'cursor-auto'} text-4xl duration-500 text-right mr-2 font-spartan font-light text-grey-light capitalize`} >i am</p>
                     <div className=" h-20 flex items-center w-40 ">

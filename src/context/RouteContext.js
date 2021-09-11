@@ -1,31 +1,38 @@
 import React,{createContext,useState,useEffect,useContext} from 'react';
 import { StateContext } from '../context/StateContext';
 
+import { bottomNavEffectAnimationClasses } from '../utils/utils';
 
 export const RouteContext = createContext();
 
 export const RouteProvider = ({children}) => {
 
     const { setHideNavbar } = useContext(StateContext);
-
-    // dummy ,nanti ubah atau perbaiki lagi logic nya 
-    const [clickLink,setClickLink] = useState({click: false,link: ''});
-    const [opacityPage,setOpacityPage] = useState(false);
+    const [isClickBottomNav,setIsClickBottomNav] = useState(false);
+    const [link,setLink] = useState(null);
 
     useEffect(()=> {
-        if(clickLink.click){
-            window.scrollTo(0,document.body.scrollHeight);
+        const bottomNavEffectElements = document.querySelectorAll('.BOTTOM-NAV-EFFECT-ELEMENT');
 
-            if (document.body.scrollHeight - document.body.scrollTop === document.body.clientHeight) {
-                setOpacityPage(true);
-                document.body.style.overflowY = 'hidden';
-            }
-
-            setHideNavbar(true);
+        if(isClickBottomNav) {
+            [...bottomNavEffectElements].forEach(el => {
+                bottomNavEffectAnimationClasses.forEach( animationClass => {
+                    if(el.classList.contains(animationClass.id)){
+                        el.classList.add(animationClass.classAnimation);
+                    }
+                });
+            });
+        }else {
+            [...bottomNavEffectElements].forEach(el => {
+                bottomNavEffectAnimationClasses.forEach( animationClass => {
+                    el.classList.remove(animationClass.classAnimation);
+                });
+            });
         }
-    },[clickLink]);
 
-    return <RouteContext.Provider value={{ clickLink, setClickLink,opacityPage,setOpacityPage}}>
+    },[isClickBottomNav]);
+   
+    return <RouteContext.Provider value={{isClickBottomNav,setIsClickBottomNav,link,setLink}}>
         {children}
     </RouteContext.Provider>
 

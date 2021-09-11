@@ -28,19 +28,13 @@ const SmoothScroll =({children,childRef})=> {
     useEffect(() => {
         setBodyHeight();
         new ResizeObserver(()=> setBodyHeight()).observe(childRef.current);
-    }, [size.height]);
+    }, []);
 
     //Set the height of the body to the height of the scrolling div
     const setBodyHeight = () => {
         if(scrollContainer.current)
-            document.body.style.height = `${scrollContainer.current.getBoundingClientRect().height}px`;
+            document.body.style.height = `${scrollContainer.current.clientHeight}px`;
     };
-
-    // useEffect(()=>{
-    //     setTimeout(()=>{
-    //         new ResizeObserver(setBodyHeight).observe(app.current);
-    //     },1000);
-    // },[]);
 
     // Scrolling
     const skewScrolling = () => {

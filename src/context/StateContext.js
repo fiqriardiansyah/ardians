@@ -1,17 +1,8 @@
 import React,{createContext,useState,useEffect} from 'react';
 
+import {menuEffectAnimationClasses,loadEffectAnimationClasses} from '../utils/utils';
+
 export const StateContext = createContext();
-
-const menuEffectAnimationClasses = [
-    {id: 'MENU-TRANSFORM-Y-100',classAnimation: 'menu-transform-y-100'},
-    {id: 'MENU-TRANSFORM-Y-200',classAnimation: 'menu-transform-y-200'},
-    {id: 'MENU-TRANSFORM-Y-300',classAnimation: 'menu-transform-y-300'},
-];
-
-const loadEffectAnimationClasses = [
-    {id: 'LOAD-OPACITY-INITIAL-07',classAnimation: 'load-opacity-07'},
-    {id: 'LOAD-OPACITY-INITIAL-1',classAnimation: 'load-opacity-1'},
-];
 
 export const StateProvider = ({children}) => {
 

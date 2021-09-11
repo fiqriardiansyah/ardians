@@ -9,6 +9,7 @@ import GhibahRoom from '../assets/images/ghibah_room.png';
 
 //components
 import ProjectBox from '../components/about/ProjectBox';
+import BottomNav from '../components/BottomNav';
 
 import SmoothScroll from '../components/SmoothScroll';
 
@@ -20,7 +21,7 @@ const projects = [
 
 const About = props => {
 
-    const childSmoothScrollRef = useRef();
+    const childSmoothScrollRef = useRef(); 
 
     useEffect(()=> {
         window.scrollTo(0,0);
@@ -30,7 +31,7 @@ const About = props => {
         <motion.div exit={{opacity: 0}} >
             <SmoothScroll childRef={childSmoothScrollRef}>
 
-                <div ref={childSmoothScrollRef} className="container px-8 mx-auto bg-black">
+                <div ref={childSmoothScrollRef} className="container px-8 mx-auto bg-primary">
                     <div className="h-screen w-full">
                         <div className="flex justify-between">
                             <div className="relative mt-72 mr-24">
@@ -50,31 +51,14 @@ const About = props => {
                         <img src={RoundLogo} alt="" className="w-56 opacity-50" />
                         <p className="whitespace-nowrap absolute text-white text-9xl capitalize font-spartan font-bold">developer based in indonesia</p>
                     </div>
-                    <div className="h-screen">
+                    <div className="h-screen-150">
                         {projects.map((el,i)=> {
                             return <ProjectBox data={el} key={i} />
                         })}
                     </div>
-                    <div className="h-screen flex relative items-end justify-center">
-                        <div className="flex items-start justify-between absolute w-full top-24">
-                            <p className="font-spartan font-light text-grey-dark text-3xl capitalize flex-1 mr-24">I’m currently available for <span className="font-medium text-grey-light"> freelance</span> projects. Let’s work together to create something worth sharing.</p>
-                            <div className="flex flex-col items-start flex-1 w-full">
-                                <p className="mb-8 font-spartan font-light text-grey-dark text-3xl capitalize">Don’t be shy, <br /> <span className="font-medium text-grey-light">make the first move</span>.</p>
-
-                                <a href="/#" className="font-spartan font-light text-white text-2xl capitalize">fiqriardian92@gmail.com</a>
-                                <a href="/#" className="font-spartan font-light text-white text-2xl capitalize">linkedin</a>
-                                <a href="/#" className="font-spartan font-light text-white text-2xl capitalize">instagram</a>
-                                <a href="/#" className="font-spartan font-light text-white text-2xl capitalize">whatsapp</a>    
-                            </div>
-                        </div>
-                        <div className="w-4/5 h-2/5 bg-grey-dark flex items-end justify-center relative ">
-                            <a href="/#" className="cursor-pointer absolute text-white font-roboto text-5xl font-medium top-1/4 ">Resume</a>
-                            <div className="w-1/2 h-2/5 bg-white flex items-end justify-center">
-                                <a href="/#" className="font-roboto text-grey-dark text-2xl font-light ">Home</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+
+                <BottomNav key="bottomNavRegular" nextLink="/resume" />
             
             </SmoothScroll>
         </motion.div>
